@@ -1,6 +1,7 @@
 package com.jiawa.wiki;
 
 import org.apache.commons.logging.Log;
+import org.apache.ibatis.annotations.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.Mapping;
 
 @SpringBootApplication
 @MapperScan("com.jiawa.wiki.mapper")
+@MapperScan("com.jiawa.wiki.service")
 public class WikiApplication {
 
     private static final Logger LOG = LoggerFactory.getLogger(WikiApplication.class);

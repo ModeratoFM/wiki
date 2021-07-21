@@ -4,7 +4,9 @@ import com.jiawa.wiki.domain.Demo;
 import com.jiawa.wiki.domain.DemoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface DemoMapper {
     long countByExample(DemoExample example);
 
