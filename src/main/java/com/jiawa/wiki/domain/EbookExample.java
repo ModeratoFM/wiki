@@ -3,14 +3,14 @@ package com.jiawa.wiki.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Ebook_testExample {
+public class EbookExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public Ebook_testExample() {
+    public EbookExample() {
         oredCriteria = new ArrayList<>();
     }
 
