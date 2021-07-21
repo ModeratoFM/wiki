@@ -1,0 +1,2 @@
+GET http://localhost:8080/ebook_test/list1
+Accept: application/json
