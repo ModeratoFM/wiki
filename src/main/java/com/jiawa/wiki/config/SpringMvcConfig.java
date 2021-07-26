@@ -11,6 +11,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.annotation.Resource;
 
+/**
+ * 拦截器定义完成后，需要引入拦截器，并指定拦截器所拦截的场景
+ *
+ * */
 @Configuration
 public class SpringMvcConfig implements WebMvcConfigurer {
 
@@ -18,6 +22,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     LogInterceptor logInterceptor;  //注入一个过滤器
      //增加一个过滤器的方法
     public  void  addInterceptors(InterceptorRegistry registry){
+
         registry.addInterceptor(logInterceptor).addPathPatterns("/**").excludePathPatterns("/login");//"/**"这样写表示针对所有的请求
     }
 
