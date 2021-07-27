@@ -6,6 +6,7 @@ import com.jiawa.wiki.domain.EbookExample;
 import com.jiawa.wiki.mapper.EbookMapper;
 import com.jiawa.wiki.req.EbookReq;
 import com.jiawa.wiki.response.EbookResp;
+import com.jiawa.wiki.response.PageResp;
 import com.jiawa.wiki.util.CopyUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +27,7 @@ public class EbookService {
         this.ebookMapper = ebookMapper;
     }
 
-    public List<EbookResp> list(EbookReq req){
+    public PageResp<EbookResp> list(EbookReq req){
         //通用写法
         EbookExample ebookExample= new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
@@ -35,7 +36,8 @@ public class EbookService {
 
 
         }
-        PageHelper.startPage(1,3);
+        // 请求参数：一个是页码，一个是每页的条数,使用req.getPage()、 req.getSize()不要写死，变成动态的
+        PageHelper.startPage(req.getPage(),req.getSize());
         List<Ebook> ebooklist=ebookMapper.selectByExample(ebookExample);
 
         PageInfo<Ebook> pageInfo = new PageInfo<>(ebooklist);
@@ -43,8 +45,7 @@ public class EbookService {
         LOG.info("总页数:{}",pageInfo.getPages());
 
 
-
-      /*
+        /*
 
         //创建一个返回类型是EbookResp的对象
         List<EbookResp> respList =new ArrayList<>();
@@ -61,10 +62,12 @@ public class EbookService {
         }
 
         */
-
         //使用封装好的工具类代替上面一大段代码，列表复制
         List<EbookResp> list = CopyUtil.copyList(ebooklist, EbookResp.class);
-        return list;
+        PageResp<EbookResp> pageResp=new PageResp();
+        pageResp.setTotal(pageInfo.getTotal());
+        pageResp.setList(list);
+        return pageResp;
     }
 
 
