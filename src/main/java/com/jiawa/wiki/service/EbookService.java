@@ -1,21 +1,23 @@
 package com.jiawa.wiki.service;
-import com.fasterxml.jackson.databind.util.BeanUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.jiawa.wiki.domain.Ebook;
 import com.jiawa.wiki.domain.EbookExample;
 import com.jiawa.wiki.mapper.EbookMapper;
 import com.jiawa.wiki.req.EbookReq;
 import com.jiawa.wiki.response.EbookResp;
 import com.jiawa.wiki.util.CopyUtil;
-import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
 @Service
 public class EbookService {
+    public static final Logger LOG= LoggerFactory.getLogger(EbookService.class);
 
     private final EbookMapper ebookMapper;
 
@@ -28,10 +30,20 @@ public class EbookService {
         //通用写法
         EbookExample ebookExample= new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
+        if (!ObjectUtils.isEmpty(req.getName())){
+            criteria.andNameLike("%"+req.getName()+"%");
 
-        criteria.andNameLike("%"+req.getName()+"%");
 
+        }
+        PageHelper.startPage(1,3);
         List<Ebook> ebooklist=ebookMapper.selectByExample(ebookExample);
+
+        PageInfo<Ebook> pageInfo = new PageInfo<>(ebooklist);
+        LOG.info("总行数:{}",pageInfo.getTotal());
+        LOG.info("总页数:{}",pageInfo.getPages());
+
+
+
       /*
 
         //创建一个返回类型是EbookResp的对象

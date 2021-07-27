@@ -1,5 +1,8 @@
 
 
 
-GET http://localhost:8080/ebook/list1?name=Spring
-Accept: application/json
+#GET http://localhost:8080/ebook/list?name=vue
+#Accept: application/json
+
+
+GET http://localhost:8080/ebook/list

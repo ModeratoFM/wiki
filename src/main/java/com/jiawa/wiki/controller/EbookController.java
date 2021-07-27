@@ -22,7 +22,7 @@ public class EbookController {
 
 
 
-    @GetMapping("/list1")
+    @GetMapping("/list")
     public CommonResp list(EbookReq req){
 
         CommonResp<List<EbookResp>> resp =new CommonResp<>();
