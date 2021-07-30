@@ -5,22 +5,29 @@ import com.jiawa.wiki.domain.Ebook;
 import com.jiawa.wiki.domain.EbookExample;
 import com.jiawa.wiki.mapper.EbookMapper;
 import com.jiawa.wiki.req.EbookReq;
+import com.jiawa.wiki.req.EbookSaveReq;
 import com.jiawa.wiki.response.EbookResp;
 import com.jiawa.wiki.response.PageResp;
 import com.jiawa.wiki.util.CopyUtil;
+import com.jiawa.wiki.util.SnowFlake;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 
 @Service
 public class EbookService {
     public static final Logger LOG= LoggerFactory.getLogger(EbookService.class);
+    @Resource
+    private  EbookMapper ebookMapper;
 
-    private final EbookMapper ebookMapper;
+    @Resource
+    private  SnowFlake snowFlake;
+
 
 
     public EbookService(EbookMapper ebookMapper) {
@@ -33,8 +40,6 @@ public class EbookService {
         EbookExample.Criteria criteria = ebookExample.createCriteria();
         if (!ObjectUtils.isEmpty(req.getName())){
             criteria.andNameLike("%"+req.getName()+"%");
-
-
         }
         // 请求参数：一个是页码，一个是每页的条数,使用req.getPage()、 req.getSize()不要写死，变成动态的
         PageHelper.startPage(req.getPage(),req.getSize());
@@ -69,6 +74,34 @@ public class EbookService {
         pageResp.setList(list);
         return pageResp;
     }
+    /*
+    * 保存
+    * */
+    public void save(EbookSaveReq req){
+        //将请求参数，把他变成我们的实体，再更新进来
+        Ebook ebook=CopyUtil.copy(req,Ebook.class);
+        if(ObjectUtils.isEmpty(req.getId())){
+            //新增
+            ebook.setId(snowFlake.nextId());
+
+            ebookMapper.insert(ebook);
+        }else {
+            //更新
+            ebookMapper.updateByPrimaryKey(ebook);
+        }
+
+
+
+
+    }
+
+    public void delete(Long id){
+
+        ebookMapper.deleteByPrimaryKey(id);
+
+    }
+
+
 
 
 

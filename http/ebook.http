@@ -6,5 +6,16 @@
 
 
 
-GET http://localhost:8080/ebook/list?page=1&size=4
+GET http://localhost:8084/ebook/list?page=1&size=10001
+
+#POST http://localhost:8084/ebook/save
+#Content-Type: application/json
+
+#{
+#  "id":8,
+#  "name":"阖家安康发货",
+#  "description": "test1111"
+#}
+
+###
 
