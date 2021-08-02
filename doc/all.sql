@@ -19,3 +19,7 @@ create table if not exists demo(
 )engine=innodb default char set =utf8mb4 comment ='测试';
 
 insert into `demo` (id, name) values (1,'测试');
+
+
+
+

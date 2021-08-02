@@ -24,7 +24,7 @@ public class EbookController {
 
 
     @GetMapping("/list")
-    public CommonResp list(@Valid  EbookReq req){
+    public CommonResp list(@Valid @RequestBody EbookReq req){
 
         CommonResp<PageResp<EbookResp>> resp =new CommonResp<>();
 
