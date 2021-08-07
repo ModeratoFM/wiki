@@ -49,7 +49,10 @@
        <!-- <table tableName="ebook_snapshot"/>-->
         <!--<table tableName="demo" domainObjectName="Demo"/>-->
       <!--  <table tableName="ebook" domainObjectName="Ebook"/> -->
-        <table tableName="category" domainObjectName="Category"/>
+       <!-- <table tableName="category" domainObjectName="Category"/> -->
+       <table tableName="user" domainObjectName="User"/>
+
+
 
 
     </context>

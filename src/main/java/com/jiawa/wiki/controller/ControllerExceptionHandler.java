@@ -18,11 +18,9 @@ public class ControllerExceptionHandler {
 
     private static final Logger LOG = LoggerFactory.getLogger(ControllerExceptionHandler.class);
 
-/*
-     * 校验异常统一处理
+/*   * 校验异常统一处理
      * @param e
      * @return
-
 */
     @ExceptionHandler(value = BindException.class)
     @ResponseBody
@@ -33,6 +31,7 @@ public class ControllerExceptionHandler {
         commonResp.setMessage(e.getBindingResult().getAllErrors().get(0).getDefaultMessage());
         return commonResp;
     }
+
 
 /*
      * 校验异常统一处理
@@ -68,4 +67,8 @@ public class ControllerExceptionHandler {
         commonResp.setMessage("系统出现异常，请联系管理员");
         return commonResp;
     }
+
+
+
+
 }
